@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Hello my name is {{ object.get_full_name }}{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card testimonial-card">
+        <!--Bacground color-->
+        <div class="card-up blue lighten-2"></div>
+        <!--Avatar-->
+        <div class="avatar mx-auto white"><img src="{{ pictureUrl }}" class="rounded-circle"></div>
+        <div class="card-body">
+        <!--Name-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <div class="col-md-6">
+      <div class="card testimonial-card">
+        <!--Bacground color-->
+        <div class="card-up"></div>
+        <!--Avatar-->
+        <div class="card-body">
+        <!--Name-->
+          <h4 class="card-title">Hello my name is {{ object.get_full_name }}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">{{ object.headline }}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{ object.location }}</h6>
+          <p class="card-text">
+            {{ object.summary }}
+          </p>
+          <hr>
+          <a href="mailto:{{ object.email }}" class="card-link"><i class="fa fa-envelope"></i></a>
+          {% for link in object.links.all %}
+            <a href="{{ link.url }}" class="card-link"><i class="fa fa-{{ link.name|lower }}"></i></a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% for job in object.jobs.all %}
+    <div class="row justify-content-center mt-2 {% if forloop.last %}mb-4{% endif %}">
+      <div class="col-md-6">
+        <div class="card testimonial-card">
+          <!--Bacground color-->
+          <div class="card-up"></div>
+          <!--Avatar-->
+          <div class="card-body">
+          <!--Name-->
+            <h4 class="card-title text-left">{{ job.role }}</h4>
+            <h6 class="card-subtitle mb-2 text-muted text-left">{{ job.company_name }}</h6>
+
+            <p class="card-text">
+
+            </p>
+            <hr>
+            <div class="text-left">
+              {{ job.from_month }} {{ job.from_year }} - {% if job.is_current %}Current{% else %}{{ job.to_month }} {{ job.to_year }}{% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endfor %}
+
+
+
+
+{% endblock content %}
+
